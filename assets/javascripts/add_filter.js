@@ -7,15 +7,24 @@ $(function () {
         }
     }
 
+    var isIssuesListUrl = function (strUrl) {
+        if (!strUrl) { return false; }
+        var hatena = strUrl.indexOf('?');
+        if (hatena !== -1) { strUrl = strUrl.substring(0, hatena); }
+        return strUrl.indexOf('issues') !== -1 && strUrl.indexOf('issues/') === -1;
+    }
+
     var observer_rsize_filter =
             new MutationObserver(function (mutations) {
                 update_option();
             });
-    observer_rsize_filter.observe(
-        $('#filters')[0], {
-            childList : true,
-            subtree: true
-        });
+    if (isIssuesListUrl(location.href)) {
+        observer_rsize_filter.observe(
+            $('#filters')[0], {
+                childList : true,
+                subtree: true
+            });
+    }
 
     // initial invoke
     update_option();
