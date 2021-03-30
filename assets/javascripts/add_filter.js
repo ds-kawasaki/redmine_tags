@@ -11,7 +11,8 @@ $(function () {
         if (!strUrl) { return false; }
         var hatena = strUrl.indexOf('?');
         if (hatena !== -1) { strUrl = strUrl.substring(0, hatena); }
-        return strUrl.indexOf('issues') !== -1 && strUrl.indexOf('issues/') === -1;
+        var strIssues = 'issues';
+        return strUrl.indexOf(strIssues, strUrl.length-strIssues.length) === strUrl.length-strIssues.length; // = endsWith
     }
 
     var observer_rsize_filter =
